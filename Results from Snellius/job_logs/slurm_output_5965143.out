@@ -1,0 +1,47 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+usage: run.py [-h] --is_training IS_TRAINING --model_id MODEL_ID --model MODEL
+              --data DATA [--root_path ROOT_PATH] [--data_path DATA_PATH]
+              [--features FEATURES] [--target TARGET] [--freq FREQ]
+              [--checkpoints CHECKPOINTS] [--seq_len SEQ_LEN]
+              [--label_len LABEL_LEN] [--pred_len PRED_LEN]
+              [--bucket_size BUCKET_SIZE] [--n_hashes N_HASHES]
+              [--enc_in ENC_IN] [--dec_in DEC_IN] [--c_out C_OUT]
+              [--d_model D_MODEL] [--n_heads N_HEADS] [--e_layers E_LAYERS]
+              [--d_layers D_LAYERS] [--d_ff D_FF] [--moving_avg MOVING_AVG]
+              [--factor FACTOR] [--distil] [--dropout DROPOUT] [--embed EMBED]
+              [--activation ACTIVATION] [--output_attention] [--do_predict]
+              [--num_workers NUM_WORKERS] [--itr ITR]
+              [--train_epochs TRAIN_EPOCHS] [--batch_size BATCH_SIZE]
+              [--patience PATIENCE] [--learning_rate LEARNING_RATE]
+              [--des DES] [--loss LOSS] [--lradj LRADJ] [--use_amp]
+              [--use_gpu USE_GPU] [--gpu GPU] [--use_multi_gpu]
+              [--devices DEVICES]
+run.py: error: unrecognized arguments: --seed 42 --decoder_lens_test --random_future
+
+JOB STATISTICS
+==============
+Job ID: 5965143
+Cluster: snellius
+User/Group: scur2113/scur2113
+State: FAILED (exit code 2)
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:09
+CPU Efficiency: 2.38% of 00:06:18 core-walltime
+Job Wall-clock time: 00:00:21
+Memory Utilized: 1.12 MB
+Memory Efficiency: 0.00% of 120.00 GB

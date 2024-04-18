@@ -1,0 +1,36 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Could not find conda environment: dl2022
+You can list all discoverable environments with `conda info --envs`.
+
+Traceback (most recent call last):
+  File "/gpfs/home3/scur2113/transformer_research/run.py", line 3, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+JOB STATISTICS
+==============
+Job ID: 5950660
+Cluster: snellius
+User/Group: scur2113/scur2113
+State: FAILED (exit code 1)
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:01
+CPU Efficiency: 0.69% of 00:02:24 core-walltime
+Job Wall-clock time: 00:00:08
+Memory Utilized: 1.21 MB
+Memory Efficiency: 0.00% of 120.00 GB

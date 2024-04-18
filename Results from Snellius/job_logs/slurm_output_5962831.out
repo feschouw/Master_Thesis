@@ -1,0 +1,49 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Traceback (most recent call last):
+  File "/gpfs/home3/scur2113/transformer_research/run.py", line 4, in <module>
+    from exp.exp_main import Exp_Main
+  File "/gpfs/home3/scur2113/transformer_research/exp/exp_main.py", line 6, in <module>
+    from data_provider.data_factory import data_provider
+  File "/gpfs/home3/scur2113/transformer_research/data_provider/data_factory.py", line 1, in <module>
+    from data_provider.data_loader import Dataset_ETT_hour, Dataset_ETT_minute, Dataset_Custom, Dataset_Pred
+  File "/gpfs/home3/scur2113/transformer_research/data_provider/data_loader.py", line 4, in <module>
+    from sklearn.preprocessing import StandardScaler
+  File "/home/scur2113/.local/lib/python3.10/site-packages/sklearn/__init__.py", line 87, in <module>
+    from .base import clone
+  File "/home/scur2113/.local/lib/python3.10/site-packages/sklearn/base.py", line 19, in <module>
+    from .utils import _IS_32BIT
+  File "/home/scur2113/.local/lib/python3.10/site-packages/sklearn/utils/__init__.py", line 22, in <module>
+    from ._estimator_html_repr import estimator_html_repr
+  File "/home/scur2113/.local/lib/python3.10/site-packages/sklearn/utils/_estimator_html_repr.py", line 10, in <module>
+    from .fixes import parse_version
+  File "/home/scur2113/.local/lib/python3.10/site-packages/sklearn/utils/fixes.py", line 18, in <module>
+    import threadpoolctl
+ModuleNotFoundError: No module named 'threadpoolctl'
+
+JOB STATISTICS
+==============
+Job ID: 5962831
+Cluster: snellius
+User/Group: scur2113/scur2113
+State: FAILED (exit code 1)
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:07
+CPU Efficiency: 2.05% of 00:05:42 core-walltime
+Job Wall-clock time: 00:00:19
+Memory Utilized: 1.29 MB
+Memory Efficiency: 0.00% of 120.00 GB
