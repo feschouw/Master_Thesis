@@ -2,25 +2,25 @@
 
 python -u run.py \
   --is_training 1 \
-  --root_path ./dataset/electricity/ \
-  --data_path electricity.csv \
-  --model_id seed42_ECL_96_96_Floris \
+  --root_path ./dataset/causal/ \
+  --data_path data_causal_1.csv \
+  --model_id seed42_CAUSAL_96_96_2 \
   --model Autoformer \
   --data custom \
   --features M \
   --seq_len 96 \
   --label_len 48 \
   --pred_len 96 \
-  --e_layers 8 \
+  --e_layers 4 \
   --d_layers 1 \
   --factor 3 \
-  --enc_in 321 \
-  --dec_in 321 \
-  --c_out 321 \
+  --enc_in 3 \
+  --dec_in 3 \
+  --c_out 3 \
   --des 'Exp' \
   --itr 1 \
-  --seed 42 \
-  --n_heads 8 \
+  #--seed 42 \
+  #--n_heads 8 \
   --train_epochs 20 
 
 

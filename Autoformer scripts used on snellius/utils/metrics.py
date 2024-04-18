@@ -31,17 +31,11 @@ def MSPE(pred, true):
     return np.mean(np.square((pred - true) / true))
 
 
-def MASE(pred, true):
-    y_naive = np.roll(true, 1, axis=1)  # Naive forecast (shifted by one time step)
-
-    return MAE(pred, true)/ MAE(y_naive[:,1:,:], true[:,1:,:])
-
 def metric(pred, true):
     mae = MAE(pred, true)
     mse = MSE(pred, true)
     rmse = RMSE(pred, true)
     mape = MAPE(pred, true)
     mspe = MSPE(pred, true)
-    mase = MASE(pred, true)
 
-    return mae, mse, rmse, mape, mspe, mase
+    return mae, mse, rmse, mape, mspe
