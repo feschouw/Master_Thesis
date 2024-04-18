@@ -1,4 +1,4 @@
-# Autoformer (NeurIPS 2021)
+# Scripts from Orginal Autoformer paper and GitHub Angela van Sprang # Autoformer (NeurIPS 2021)
 
 Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting
 
