@@ -1,0 +1,190 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Args in experiment:
+Namespace(model='informer', data='Causal', root_path='./data/ETT/', data_path='data_causal_1.csv', features='M', target='OT', freq='h', checkpoints='./checkpoints/', seq_len=48, label_len=48, pred_len=24, enc_in=3, dec_in=3, c_out=3, d_model=512, n_heads=8, e_layers=2, d_layers=1, s_layers=[3, 2, 1], d_ff=2048, factor=5, padding=0, distil=True, dropout=0.05, attn='prob', embed='timeF', activation='gelu', output_attention=False, do_predict=False, mix=True, cols=None, num_workers=0, itr=5, train_epochs=6, batch_size=32, patience=3, learning_rate=0.0001, des='Exp', loss='mse', lradj='type1', use_amp=False, inverse=False, use_gpu=True, gpu=0, use_multi_gpu=False, devices='0,1,2,3', detail_freq='h')
+Use GPU: cuda:0
+>>>>>>>start training : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 629
+val 77
+test 177
+Epoch: 1 cost time: 1.7196800708770752
+Epoch: 1, Steps: 19 | Train Loss: 1.1276411 Vali Loss: 0.9305303 Test Loss: 1.1307783
+Validation loss decreased (inf --> 0.930530).  Saving model ...
+Updating learning rate to 0.0001
+Epoch: 2 cost time: 0.348895788192749
+Epoch: 2, Steps: 19 | Train Loss: 1.0177275 Vali Loss: 0.9075295 Test Loss: 1.1197460
+Validation loss decreased (0.930530 --> 0.907529).  Saving model ...
+Updating learning rate to 5e-05
+Epoch: 3 cost time: 0.3467848300933838
+Epoch: 3, Steps: 19 | Train Loss: 1.0028531 Vali Loss: 0.9311917 Test Loss: 1.1341509
+EarlyStopping counter: 1 out of 3
+Updating learning rate to 2.5e-05
+Epoch: 4 cost time: 0.3468754291534424
+Epoch: 4, Steps: 19 | Train Loss: 0.9974540 Vali Loss: 0.9545310 Test Loss: 1.1195257
+EarlyStopping counter: 2 out of 3
+Updating learning rate to 1.25e-05
+Epoch: 5 cost time: 0.3448491096496582
+Epoch: 5, Steps: 19 | Train Loss: 0.9914465 Vali Loss: 0.9203649 Test Loss: 1.1200111
+EarlyStopping counter: 3 out of 3
+Early stopping
+>>>>>>>testing : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 177
+test shape: (5, 32, 24, 3) (5, 32, 24, 3)
+test shape: (160, 24, 3) (160, 24, 3)
+mse:1.1207326650619507, mae:0.8488247394561768
+Use GPU: cuda:0
+>>>>>>>start training : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_1>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 629
+val 77
+test 177
+Epoch: 1 cost time: 0.35188817977905273
+Epoch: 1, Steps: 19 | Train Loss: 1.1118882 Vali Loss: 0.9524661 Test Loss: 1.1420742
+Validation loss decreased (inf --> 0.952466).  Saving model ...
+Updating learning rate to 0.0001
+Epoch: 2 cost time: 0.3460426330566406
+Epoch: 2, Steps: 19 | Train Loss: 1.0243973 Vali Loss: 0.9276268 Test Loss: 1.1440345
+Validation loss decreased (0.952466 --> 0.927627).  Saving model ...
+Updating learning rate to 5e-05
+Epoch: 3 cost time: 0.3476581573486328
+Epoch: 3, Steps: 19 | Train Loss: 0.9987557 Vali Loss: 0.9592766 Test Loss: 1.1403158
+EarlyStopping counter: 1 out of 3
+Updating learning rate to 2.5e-05
+Epoch: 4 cost time: 0.3482635021209717
+Epoch: 4, Steps: 19 | Train Loss: 0.9963656 Vali Loss: 0.9406974 Test Loss: 1.1555007
+EarlyStopping counter: 2 out of 3
+Updating learning rate to 1.25e-05
+Epoch: 5 cost time: 0.3461313247680664
+Epoch: 5, Steps: 19 | Train Loss: 0.9871773 Vali Loss: 0.9664705 Test Loss: 1.1790953
+EarlyStopping counter: 3 out of 3
+Early stopping
+>>>>>>>testing : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_1<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 177
+test shape: (5, 32, 24, 3) (5, 32, 24, 3)
+test shape: (160, 24, 3) (160, 24, 3)
+mse:1.1420754194259644, mae:0.8597592711448669
+Use GPU: cuda:0
+>>>>>>>start training : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_2>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 629
+val 77
+test 177
+Epoch: 1 cost time: 0.35121774673461914
+Epoch: 1, Steps: 19 | Train Loss: 1.1295877 Vali Loss: 0.9643283 Test Loss: 1.1408528
+Validation loss decreased (inf --> 0.964328).  Saving model ...
+Updating learning rate to 0.0001
+Epoch: 2 cost time: 0.3464033603668213
+Epoch: 2, Steps: 19 | Train Loss: 1.0195045 Vali Loss: 0.9460548 Test Loss: 1.1512258
+Validation loss decreased (0.964328 --> 0.946055).  Saving model ...
+Updating learning rate to 5e-05
+Epoch: 3 cost time: 0.347125768661499
+Epoch: 3, Steps: 19 | Train Loss: 1.0032783 Vali Loss: 0.9181794 Test Loss: 1.1244671
+Validation loss decreased (0.946055 --> 0.918179).  Saving model ...
+Updating learning rate to 2.5e-05
+Epoch: 4 cost time: 0.3460202217102051
+Epoch: 4, Steps: 19 | Train Loss: 0.9944318 Vali Loss: 0.9519059 Test Loss: 1.1163305
+EarlyStopping counter: 1 out of 3
+Updating learning rate to 1.25e-05
+Epoch: 5 cost time: 0.3451848030090332
+Epoch: 5, Steps: 19 | Train Loss: 0.9926872 Vali Loss: 0.9216135 Test Loss: 1.1220987
+EarlyStopping counter: 2 out of 3
+Updating learning rate to 6.25e-06
+Epoch: 6 cost time: 0.3450939655303955
+Epoch: 6, Steps: 19 | Train Loss: 0.9895339 Vali Loss: 0.9625261 Test Loss: 1.1114528
+EarlyStopping counter: 3 out of 3
+Early stopping
+>>>>>>>testing : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_2<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 177
+test shape: (5, 32, 24, 3) (5, 32, 24, 3)
+test shape: (160, 24, 3) (160, 24, 3)
+mse:1.1228833198547363, mae:0.8513873815536499
+Use GPU: cuda:0
+>>>>>>>start training : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_3>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 629
+val 77
+test 177
+Epoch: 1 cost time: 0.35196495056152344
+Epoch: 1, Steps: 19 | Train Loss: 1.1154689 Vali Loss: 0.9797588 Test Loss: 1.1460171
+Validation loss decreased (inf --> 0.979759).  Saving model ...
+Updating learning rate to 0.0001
+Epoch: 2 cost time: 0.3465158939361572
+Epoch: 2, Steps: 19 | Train Loss: 1.0197335 Vali Loss: 0.9449682 Test Loss: 1.1437805
+Validation loss decreased (0.979759 --> 0.944968).  Saving model ...
+Updating learning rate to 5e-05
+Epoch: 3 cost time: 0.346250057220459
+Epoch: 3, Steps: 19 | Train Loss: 1.0025272 Vali Loss: 0.9715168 Test Loss: 1.1618917
+EarlyStopping counter: 1 out of 3
+Updating learning rate to 2.5e-05
+Epoch: 4 cost time: 0.34571266174316406
+Epoch: 4, Steps: 19 | Train Loss: 0.9923768 Vali Loss: 0.9371271 Test Loss: 1.1076820
+Validation loss decreased (0.944968 --> 0.937127).  Saving model ...
+Updating learning rate to 1.25e-05
+Epoch: 5 cost time: 0.34715723991394043
+Epoch: 5, Steps: 19 | Train Loss: 0.9912898 Vali Loss: 0.9273714 Test Loss: 1.1094517
+Validation loss decreased (0.937127 --> 0.927371).  Saving model ...
+Updating learning rate to 6.25e-06
+Epoch: 6 cost time: 0.3465607166290283
+Epoch: 6, Steps: 19 | Train Loss: 0.9900556 Vali Loss: 0.9373640 Test Loss: 1.1256238
+EarlyStopping counter: 1 out of 3
+Updating learning rate to 3.125e-06
+>>>>>>>testing : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_3<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 177
+test shape: (5, 32, 24, 3) (5, 32, 24, 3)
+test shape: (160, 24, 3) (160, 24, 3)
+mse:1.1097661256790161, mae:0.8449723720550537
+Use GPU: cuda:0
+>>>>>>>start training : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_4>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 629
+val 77
+test 177
+Epoch: 1 cost time: 0.3512556552886963
+Epoch: 1, Steps: 19 | Train Loss: 1.1146700 Vali Loss: 1.0222439 Test Loss: 1.1586879
+Validation loss decreased (inf --> 1.022244).  Saving model ...
+Updating learning rate to 0.0001
+Epoch: 2 cost time: 0.3466024398803711
+Epoch: 2, Steps: 19 | Train Loss: 1.0173613 Vali Loss: 0.9231528 Test Loss: 1.1299710
+Validation loss decreased (1.022244 --> 0.923153).  Saving model ...
+Updating learning rate to 5e-05
+Epoch: 3 cost time: 0.34635353088378906
+Epoch: 3, Steps: 19 | Train Loss: 0.9957504 Vali Loss: 0.9568310 Test Loss: 1.1533272
+EarlyStopping counter: 1 out of 3
+Updating learning rate to 2.5e-05
+Epoch: 4 cost time: 0.3453562259674072
+Epoch: 4, Steps: 19 | Train Loss: 0.9930887 Vali Loss: 0.9301559 Test Loss: 1.1368792
+EarlyStopping counter: 2 out of 3
+Updating learning rate to 1.25e-05
+Epoch: 5 cost time: 0.34511613845825195
+Epoch: 5, Steps: 19 | Train Loss: 0.9882161 Vali Loss: 0.9388674 Test Loss: 1.1467803
+EarlyStopping counter: 3 out of 3
+Early stopping
+>>>>>>>testing : informer_Causal_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_4<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 177
+test shape: (5, 32, 24, 3) (5, 32, 24, 3)
+test shape: (160, 24, 3) (160, 24, 3)
+mse:1.1297357082366943, mae:0.8536752462387085
+
+JOB STATISTICS
+==============
+Job ID: 6022476
+Cluster: snellius
+User/Group: scur2113/scur2113
+State: RUNNING
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 00:10:12 core-walltime
+Job Wall-clock time: 00:00:34
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 120.00 GB (120.00 GB/node)
+WARNING: Efficiency statistics may be misleading for RUNNING jobs.

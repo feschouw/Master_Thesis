@@ -1,0 +1,89 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Args in experiment:
+Namespace(model='informer', data='ETTh1', root_path='./data/ETT/', data_path='ETTh1.csv', features='M', target='OT', freq='h', checkpoints='./checkpoints/', seq_len=48, label_len=48, pred_len=24, enc_in=7, dec_in=7, c_out=7, d_model=512, n_heads=8, e_layers=2, d_layers=1, s_layers=[3, 2, 1], d_ff=2048, factor=3, padding=0, distil=True, dropout=0.05, attn='prob', embed='timeF', activation='gelu', output_attention=False, do_predict=False, mix=True, cols=None, num_workers=0, itr=2, train_epochs=6, batch_size=32, patience=3, learning_rate=0.0001, des='Exp', loss='mse', lradj='type1', use_amp=False, inverse=False, use_gpu=True, gpu=0, use_multi_gpu=False, devices='0,1,2,3', detail_freq='h')
+Use GPU: cuda:0
+>>>>>>>start training : informer_ETTh1_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc3_ebtimeF_dtTrue_mxTrue_Exp_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 8569
+val 2857
+test 2857
+TRAIN_DATA <data.data_loader.Dataset_ETT_hour object at 0x145fdf9b9900>
+TEST_DATA <data.data_loader.Dataset_ETT_hour object at 0x145fdf9bb7f0>
+	iters: 100, epoch: 1 | loss: 0.4042544
+	speed: 0.0635s/iter; left time: 95.4226s
+	iters: 200, epoch: 1 | loss: 0.3254865
+	speed: 0.0180s/iter; left time: 25.2900s
+Epoch: 1 cost time: 6.3511528968811035
+Epoch: 1, Steps: 267 | Train Loss: 0.3940881 Vali Loss: 0.6144468 Test Loss: 0.5235856
+Validation loss decreased (inf --> 0.614447).  Saving model ...
+Updating learning rate to 0.0001
+	iters: 100, epoch: 2 | loss: 0.2644937
+	speed: 0.0451s/iter; left time: 55.7391s
+	iters: 200, epoch: 2 | loss: 0.1983466
+	speed: 0.0180s/iter; left time: 20.4542s
+Epoch: 2 cost time: 4.814234018325806
+Epoch: 2, Steps: 267 | Train Loss: 0.2586438 Vali Loss: 0.6065249 Test Loss: 0.5269432
+Validation loss decreased (0.614447 --> 0.606525).  Saving model ...
+Updating learning rate to 5e-05
+	iters: 100, epoch: 3 | loss: 0.2403938
+	speed: 0.0449s/iter; left time: 43.5414s
+	iters: 200, epoch: 3 | loss: 0.2210578
+	speed: 0.0180s/iter; left time: 15.6574s
+Epoch: 3 cost time: 4.807939291000366
+Epoch: 3, Steps: 267 | Train Loss: 0.2066607 Vali Loss: 0.6118057 Test Loss: 0.5292554
+EarlyStopping counter: 1 out of 3
+Updating learning rate to 2.5e-05
+	iters: 100, epoch: 4 | loss: 0.1882833
+	speed: 0.0443s/iter; left time: 31.0898s
+	iters: 200, epoch: 4 | loss: 0.1371326
+	speed: 0.0180s/iter; left time: 10.8257s
+Epoch: 4 cost time: 4.804948568344116
+Epoch: 4, Steps: 267 | Train Loss: 0.1808780 Vali Loss: 0.6304006 Test Loss: 0.5640777
+EarlyStopping counter: 2 out of 3
+Updating learning rate to 1.25e-05
+	iters: 100, epoch: 5 | loss: 0.1681409
+	speed: 0.0443s/iter; left time: 19.2565s
+	iters: 200, epoch: 5 | loss: 0.1516761
+	speed: 0.0180s/iter; left time: 6.0322s
+Epoch: 5 cost time: 4.804687023162842
+Epoch: 5, Steps: 267 | Train Loss: 0.1671809 Vali Loss: 0.6405534 Test Loss: 0.5875819
+EarlyStopping counter: 3 out of 3
+Early stopping
+>>>>>>>testing : informer_ETTh1_ftM_sl48_ll48_pl24_dm512_nh8_el2_dl1_df2048_atprob_fc3_ebtimeF_dtTrue_mxTrue_Exp_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 2857
+test shape: (89, 32, 24, 7) (89, 32, 24, 7)
+test shape: (2848, 24, 7) (2848, 24, 7)
+Traceback (most recent call last):
+  File "/gpfs/home3/scur2113/Informer2020-main/Informer2020-main/main_informer.py", line 108, in <module>
+    exp.test(setting)
+  File "/gpfs/home3/scur2113/Informer2020-main/Informer2020-main/exp/exp_informer.py", line 217, in test
+    print("TEST_DATA",  test_data.shape(100) )
+AttributeError: 'Dataset_ETT_hour' object has no attribute 'shape'. Did you mean: 'scale'?
+./scripts/ETTh1.sh: line 5: p#ython: command not found
+
+JOB STATISTICS
+==============
+Job ID: 6043948
+Cluster: snellius
+User/Group: scur2113/scur2113
+State: FAILED (exit code 127)
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:40
+CPU Efficiency: 4.19% of 00:15:54 core-walltime
+Job Wall-clock time: 00:00:53
+Memory Utilized: 1.14 GB
+Memory Efficiency: 0.95% of 120.00 GB

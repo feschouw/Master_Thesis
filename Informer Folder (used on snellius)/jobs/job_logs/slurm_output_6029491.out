@@ -1,0 +1,66 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Args in experiment:
+Namespace(model='informer', data='Causal', root_path='./data/ETT/', data_path='data_causal_1.csv', features='M', target='OT', freq='h', checkpoints='./checkpoints/', seq_len=96, label_len=96, pred_len=48, enc_in=3, dec_in=3, c_out=3, d_model=512, n_heads=8, e_layers=2, d_layers=1, s_layers=[3, 2, 1], d_ff=2048, factor=5, padding=0, distil=True, dropout=0.05, attn='prob', embed='timeF', activation='gelu', output_attention=False, do_predict=False, mix=True, cols=None, num_workers=0, itr=1, train_epochs=30, batch_size=32, patience=0, learning_rate=0.0001, des='Exp', loss='mse', lradj='type1', use_amp=False, inverse=False, use_gpu=True, gpu=0, use_multi_gpu=False, devices='0,1,2,3', detail_freq='h')
+Use GPU: cuda:0
+>>>>>>>start training : informer_Causal_ftM_sl96_ll96_pl48_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 6857
+val 953
+test 1953
+	iters: 100, epoch: 1 | loss: 1.0176214
+	speed: 0.0572s/iter; left time: 361.4410s
+	iters: 200, epoch: 1 | loss: 0.9736546
+	speed: 0.0222s/iter; left time: 137.9325s
+Epoch: 1 cost time: 6.145106792449951
+Epoch: 1, Steps: 214 | Train Loss: 1.0203046 Vali Loss: 1.0434226 Test Loss: 1.0224080
+Validation loss decreased (inf --> 1.043423).  Saving model ...
+Updating learning rate to 0.0001
+	iters: 100, epoch: 2 | loss: 0.9563327
+	speed: 0.0348s/iter; left time: 212.5123s
+	iters: 200, epoch: 2 | loss: 1.0292422
+	speed: 0.0222s/iter; left time: 133.0796s
+Epoch: 2 cost time: 4.745705604553223
+Epoch: 2, Steps: 214 | Train Loss: 0.9937103 Vali Loss: 1.0384077 Test Loss: 1.0066303
+Validation loss decreased (1.043423 --> 1.038408).  Saving model ...
+Updating learning rate to 5e-05
+	iters: 100, epoch: 3 | loss: 0.9390548
+	speed: 0.0346s/iter; left time: 203.8825s
+	iters: 200, epoch: 3 | loss: 0.9990635
+	speed: 0.0222s/iter; left time: 128.3768s
+Epoch: 3 cost time: 4.741018533706665
+Epoch: 3, Steps: 214 | Train Loss: 0.9796571 Vali Loss: 1.0468305 Test Loss: 1.0142902
+EarlyStopping counter: 1 out of 0
+Early stopping
+>>>>>>>testing : informer_Causal_ftM_sl96_ll96_pl48_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 1953
+test shape: (61, 32, 48, 3) (61, 32, 48, 3)
+test shape: (1952, 48, 3) (1952, 48, 3)
+mse:1.0067064762115479, mae:0.7950741052627563
+
+JOB STATISTICS
+==============
+Job ID: 6029491
+Cluster: snellius
+User/Group: scur2113/scur2113
+State: RUNNING
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 00:10:30 core-walltime
+Job Wall-clock time: 00:00:35
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 120.00 GB (120.00 GB/node)
+WARNING: Efficiency statistics may be misleading for RUNNING jobs.

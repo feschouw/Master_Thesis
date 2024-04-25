@@ -1,0 +1,83 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Args in experiment:
+Namespace(model='informer', data='Causal', root_path='./data/ETT/', data_path='data_causal_1.csv', features='M', target='OT', freq='h', checkpoints='./checkpoints/', seq_len=48, label_len=48, pred_len=200, enc_in=3, dec_in=3, c_out=3, d_model=512, n_heads=8, e_layers=2, d_layers=1, s_layers=[3, 2, 1], d_ff=2048, factor=5, padding=0, distil=True, dropout=0.05, attn='prob', embed='timeF', activation='gelu', output_attention=False, do_predict=False, mix=True, cols=None, num_workers=0, itr=5, train_epochs=6, batch_size=32, patience=3, learning_rate=0.0001, des='Exp', loss='mse', lradj='type1', use_amp=False, inverse=False, use_gpu=True, gpu=0, use_multi_gpu=False, devices='0,1,2,3', detail_freq='h')
+Use GPU: cuda:0
+>>>>>>>start training : informer_Causal_ftM_sl48_ll48_pl200_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 6753
+val 801
+test 1801
+	iters: 100, epoch: 1 | loss: 0.9880424
+	speed: 0.0595s/iter; left time: 69.4292s
+	iters: 200, epoch: 1 | loss: 1.0085193
+	speed: 0.0264s/iter; left time: 28.1843s
+Epoch: 1 cost time: 6.867700815200806
+Epoch: 1, Steps: 211 | Train Loss: 1.0149955 Vali Loss: 1.0210437 Test Loss: 0.9976736
+Validation loss decreased (inf --> 1.021044).  Saving model ...
+Updating learning rate to 0.0001
+	iters: 100, epoch: 2 | loss: 1.0054342
+	speed: 0.0394s/iter; left time: 37.6958s
+	iters: 200, epoch: 2 | loss: 1.0220919
+	speed: 0.0264s/iter; left time: 22.5561s
+Epoch: 2 cost time: 5.5640952587127686
+Epoch: 2, Steps: 211 | Train Loss: 0.9958396 Vali Loss: 1.0240629 Test Loss: 1.0006520
+EarlyStopping counter: 1 out of 3
+Updating learning rate to 5e-05
+	iters: 100, epoch: 3 | loss: 0.9872350
+	speed: 0.0385s/iter; left time: 28.6922s
+	iters: 200, epoch: 3 | loss: 0.9755054
+	speed: 0.0263s/iter; left time: 16.9499s
+Epoch: 3 cost time: 5.544169902801514
+Epoch: 3, Steps: 211 | Train Loss: 0.9864882 Vali Loss: 1.0317501 Test Loss: 1.0057288
+EarlyStopping counter: 2 out of 3
+Updating learning rate to 2.5e-05
+	iters: 100, epoch: 4 | loss: 0.9709249
+	speed: 0.0386s/iter; left time: 20.6210s
+	iters: 200, epoch: 4 | loss: 0.9725639
+	speed: 0.0263s/iter; left time: 11.4251s
+Epoch: 4 cost time: 5.562655448913574
+Epoch: 4, Steps: 211 | Train Loss: 0.9814540 Vali Loss: 1.0304971 Test Loss: 1.0056109
+EarlyStopping counter: 3 out of 3
+Early stopping
+>>>>>>>testing : informer_Causal_ftM_sl48_ll48_pl200_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 1801
+test shape: (56, 32, 200, 3) (56, 32, 200, 3)
+test shape: (1792, 200, 3) (1792, 200, 3)
+mse:0.9976399540901184, mae:0.7893702983856201
+Use GPU: cuda:0
+>>>>>>>start training : informer_Causal_ftM_sl48_ll48_pl200_dm512_nh8_el2_dl1_df2048_atprob_fc5_ebtimeF_dtTrue_mxTrue_Exp_1>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 6753
+val 801
+test 1801
+	iters: 100, epoch: 1 | loss: 1.0027684
+	speed: 0.0263s/iter; left time: 30.7372s
+slurmstepd: error: *** JOB 6023294 ON gcn51 CANCELLED AT 2024-04-23T16:40:42 ***
+slurmstepd: error: container_p_join: setns failed for /slurm/6023294/.ns: Invalid argument
+slurmstepd: error: container_g_join(6023294): Invalid argument
+
+JOB STATISTICS
+==============
+Job ID: 6023294
+Cluster: snellius
+User/Group: scur2113/scur2113
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:01
+CPU Efficiency: 0.12% of 00:14:24 core-walltime
+Job Wall-clock time: 00:00:48
+Memory Utilized: 1.14 GB
+Memory Efficiency: 0.95% of 120.00 GB
