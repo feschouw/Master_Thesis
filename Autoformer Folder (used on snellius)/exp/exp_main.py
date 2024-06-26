@@ -16,16 +16,48 @@ from torch import optim
 
 import os
 import time
-
+import wandb
 import warnings
 import numpy as np
 
 warnings.filterwarnings('ignore')
+# Import the W&B Python Library
+import wandb
+
+# 1. Start a W&B Run
 
 
-class Exp_Main(Exp_Basic):
+class Exp_Main(Exp_Basic):      
     def __init__(self, args):
         super(Exp_Main, self).__init__(args)
+        run = wandb.init(
+            project="Autoformer",
+            notes="now with plots of predicitons and true values",
+            tags=["autoformer"],
+            config={
+            "is_training": self.args.is_training,
+            "root_path": self.args.root_path,
+            "data_path": self.args.data_path,
+            "model": self.args.model,
+            "data": self.args.data,
+            "features": self.args.features,
+            "seq_len": self.args.seq_len,
+            "label_len": self.args.label_len,
+            "pred_len": self.args.pred_len,
+            "e_layers": self.args.e_layers,
+            "d_layers": self.args.d_layers,
+            "factor": self.args.factor,
+            "enc_in": self.args.enc_in,
+            "dec_in": self.args.dec_in,
+            "c_out": self.args.c_out,
+            "des": self.args.des,
+            "itr": self.args.itr,
+            "train_epochs": self.args.train_epochs,
+            "batch_size": self.args.batch_size,
+            "patience": self.args.patience
+
+            },
+        )   
 
     def _build_model(self):
         model_dict = {
@@ -75,6 +107,8 @@ class Exp_Main(Exp_Basic):
         batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
 
         return outputs, batch_y
+
+    
 
     def vali(self, vali_data, vali_loader, criterion):
         total_loss = []
@@ -163,6 +197,14 @@ class Exp_Main(Exp_Basic):
             print("Epoch: {0}, Steps: {1} | Train Loss: {2:.7f} Vali Loss: {3:.7f} Test Loss: {4:.7f}".format(
                 epoch + 1, train_steps, train_loss, vali_loss, test_loss))
             early_stopping(vali_loss, self.model, path)
+            wandb.log(
+            {
+                "epoch": epoch + 1,
+                "train_steps": train_steps,
+                "train_loss": train_loss,
+                "val_loss": vali_loss,
+                "test_loss": test_loss,
+            })
             if early_stopping.early_stop:
                 print("Early stopping")
                 break
@@ -179,6 +221,11 @@ class Exp_Main(Exp_Basic):
         if test:
             print('loading model')
             self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
+        # #WANDB
+        # columns=["trues", "preds"]
+        # for digit in range(len(test_data)+1): 
+        #     columns.append("score_" + str(digit))
+        # test_table = wandb.Table(columns=columns)
 
         preds = []
         trues = []
@@ -217,13 +264,43 @@ class Exp_Main(Exp_Basic):
         preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])
         trues = trues.reshape(-1, trues.shape[-2], trues.shape[-1])
         print('test shape:', preds.shape, trues.shape)
-
+        #WANDB PREDICITONS!
+        for i in range(preds.shape[0]):  # Iterate over each time series
+            if i % 20 == 0:
+                pred_series = preds[i, :, -1]  # Assuming last dimension is the feature we're predicting
+                true_series = trues[i, :, -1]
+                
+                # Create a list of dictionaries for each time step
+                data = [
+                    {"timestamp": j, "prediction": float(pred), "ground_truth": float(true)}
+                    for j, (pred, true) in enumerate(zip(pred_series, true_series))
+                ]
+                
+                # Log the data as a custom chart
+                wandb.log({
+                    f"TimeSeries_{i}": wandb.plot.line_series(
+                        xs=[d['timestamp'] for d in data],
+                        ys=[[d['prediction'] for d in data], [d['ground_truth'] for d in data]],
+                        keys=["Prediction", "Ground Truth"],
+                        title=f"Time Series Prediction vs Ground Truth - Series {i}",
+                        xname="Time Step"
+                    )
+            })
         # result save
         folder_path = './results/' + setting + '/'
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
 
         mae, mse, rmse, mape, mspe = metric(preds, trues)
+        wandb.log(
+            {
+                "mae": mae,
+                "mse": mse,
+                "rmse": rmse,
+                "mape": mape,
+                "mspe": mspe,
+            })
+        
         print('mse:{}, mae:{}'.format(mse, mae))
         f = open("result.txt", 'a')
         f.write(setting + "  \n")
@@ -231,6 +308,7 @@ class Exp_Main(Exp_Basic):
         f.write('\n')
         f.write('\n')
         f.close()
+        
 
         np.save(folder_path + 'metrics.npy', np.array([mae, mse, rmse, mape, mspe]))
         np.save(folder_path + 'pred.npy', preds)
