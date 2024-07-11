@@ -8,9 +8,9 @@ python -u run.py \
   --model Autoformer \
   --data custom \
   --features M \
-  --seq_len 96 \
+  --seq_len 60 \
   --label_len 48 \
-  --pred_len 90 \
+  --pred_len 50 \
   --e_layers 3 \
   --d_layers 1 \
   --factor 3 \
@@ -20,7 +20,7 @@ python -u run.py \
   --des 'Exp' \
   --itr 1 \
   --train_epochs 30 \
-  --batch_size 20 \
+  --batch_size 30 \
   --patience 25
 
   #--seed 42 \

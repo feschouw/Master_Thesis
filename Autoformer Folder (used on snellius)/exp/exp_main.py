@@ -31,8 +31,8 @@ class Exp_Main(Exp_Basic):
     def __init__(self, args):
         super(Exp_Main, self).__init__(args)
         run = wandb.init(
-            project="Autoformer",
-            notes="now with plots of predicitons and true values",
+            project= self.args.wandb_project,
+            notes=".",
             tags=["autoformer"],
             config={
             "is_training": self.args.is_training,
@@ -54,7 +54,11 @@ class Exp_Main(Exp_Basic):
             "itr": self.args.itr,
             "train_epochs": self.args.train_epochs,
             "batch_size": self.args.batch_size,
-            "patience": self.args.patience
+            "patience": self.args.patience,
+            "learning_rate": self.args.learning_rate,
+            "lradj": self.args.lradj,
+            "dropout":  self.args.dropout,
+            
 
             },
         )   
@@ -74,6 +78,7 @@ class Exp_Main(Exp_Basic):
 
     def _get_data(self, flag):
         data_set, data_loader = data_provider(self.args, flag)
+        self.Data = data_set
         return data_set, data_loader
 
     def _select_optimizer(self):
@@ -123,8 +128,10 @@ class Exp_Main(Exp_Basic):
 
                 outputs, batch_y = self._predict(batch_x, batch_y, batch_x_mark, batch_y_mark)
 
-                pred = outputs.detach().cpu()
-                true = batch_y.detach().cpu()
+                mean_X, std_X = self.Data.scaler.mean_, self.Data.scaler.scale_
+                pred = outputs.detach().cpu() * std_X + mean_X
+                true = batch_y.detach().cpu() * std_X + mean_X
+
 
                 loss = criterion(pred, true)
 
@@ -243,27 +250,57 @@ class Exp_Main(Exp_Basic):
                 batch_y_mark = batch_y_mark.float().to(self.device)
 
                 outputs, batch_y = self._predict(batch_x, batch_y, batch_x_mark, batch_y_mark)
-
-                outputs = outputs.detach().cpu().numpy()
-                batch_y = batch_y.detach().cpu().numpy()
+                mean_X, std_X = self.Data.scaler.mean_, self.Data.scaler.scale_
+             
+                outputs = outputs.detach().cpu().numpy()* std_X + mean_X
+                batch_y = batch_y.detach().cpu().numpy()* std_X + mean_X
+                # outputs = outputs.detach().cpu().numpy()
+                # batch_y = batch_y.detach().cpu().numpy()
 
                 pred = outputs  # outputs.detach().cpu().numpy()  # .squeeze()
                 true = batch_y  # batch_y.detach().cpu().numpy()  # .squeeze()
 
                 preds.append(pred)
                 trues.append(true)
-                if i % 20 == 0:
-                    input = batch_x.detach().cpu().numpy()
-                    gt = np.concatenate((input[0, :, -1], true[0, :, -1]), axis=0)
-                    pd = np.concatenate((input[0, :, -1], pred[0, :, -1]), axis=0)
-                    visual(gt, pd, os.path.join(folder_path, str(i) + '.pdf'))
-
+                # if i % 20 == 0:
+                #     input = batch_x.detach().cpu().numpy()
+                #     gt = np.concatenate((input[0, :, -1], true[0, :, -1]), axis=0)
+                #     pd = np.concatenate((input[0, :, -1], pred[0, :, -1]), axis=0)
+                #     visual(gt, pd, os.path.join(folder_path, str(i) + '.pdf'))
+        dataset = test_loader.dataset
+        
         preds = np.concatenate(preds, axis=0)
         trues = np.concatenate(trues, axis=0)
         print('test shape:', preds.shape, trues.shape)
+        mean_X, std_X = self.Data.scaler.mean_, self.Data.scaler.scale_
+        print("Mean_x std_X",mean_X, std_X)
         preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])
         trues = trues.reshape(-1, trues.shape[-2], trues.shape[-1])
         print('test shape:', preds.shape, trues.shape)
+        wandb.save('preds.npy')
+        wandb.save('trues.npy')
+
+        data = []
+        for t, (true_val, pred_val) in enumerate(zip(trues[:, 0, -1], preds[:, 0, -1])): #this get all the values of the last feature OT, and select every firts prediciton from its time series predicitons samples, which creates the predictions on the test set
+            data.append({
+                'timestamp': t,
+                'ground_truth': true_val,
+                'prediction': pred_val
+            })
+
+        # Log to wandb
+        wandb.log({
+            f"Results on test set": wandb.plot.line_series(
+                xs=[d['timestamp'] for d in data],
+                ys=[
+                    [d['prediction'] for d in data],
+                    [d['ground_truth'] for d in data]
+                ],
+                keys=["Prediction", "Ground Truth"],
+                title=f"Predicitons vs Ground truth",
+                xname="Time Step"
+            )
+        })
         #WANDB PREDICITONS!
         for i in range(preds.shape[0]):  # Iterate over each time series
             if i % 20 == 0:
@@ -282,10 +319,12 @@ class Exp_Main(Exp_Basic):
                         xs=[d['timestamp'] for d in data],
                         ys=[[d['prediction'] for d in data], [d['ground_truth'] for d in data]],
                         keys=["Prediction", "Ground Truth"],
-                        title=f"Time Series Prediction vs Ground Truth - Series {i}",
+                        title=f"During Training Prediction vs Ground Truth - Series {i} ",
                         xname="Time Step"
                     )
             })
+            
+
         # result save
         folder_path = './results/' + setting + '/'
         if not os.path.exists(folder_path):
