@@ -1,6 +1,6 @@
 # Temporal Fusion Transformer for Causal Discovery
 
-This repository contains the implementation of a novel approach using Temporal Fusion Transformers (TFT) for discovering causal relationships in multivariate time series data, as detailed in my Master's thesis at the University of Amsterdam.
+This repository contains the implementation of using Temporal Fusion Transformers (TFT) for discovering causal relationships in multivariate time series data.
 
 ## Overview
 
