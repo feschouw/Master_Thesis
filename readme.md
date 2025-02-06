@@ -21,15 +21,16 @@ This project explores using TFT's inherent architectural features - variable sel
 ## Project Structure
 
 ```
-├── data/                # Dataset directory
-├── scripts/            # Helper scripts
+├── data/               # Dataset directory
+├── example.ipynb       # Example notebook 
 ├── src/                # Source code
-│   ├── analysis/      # Analysis tools
-│   ├── config/        # Configuration files
-│   ├── data/          # Data loading utilities
-│   ├── models/        # TFT model implementation
-│   └── visualization/ # Plotting utilities
-└── example_notebook.ipynb  # Example usage notebook
+│   ├── analysis/       # Analysis tools and PFI implementation
+│   ├── config/         # Configuration files
+│   ├── data/           # Data loading utilities
+│   ├── models/         # TFT model implementation
+│   └── visualization/  # Plotting utilities
+├── main.py             # Main script to run experiments
+├── README.md
 ```
 
 ## Dataset
@@ -40,11 +41,30 @@ This project explores using TFT's inherent architectural features - variable sel
 
 1. Prepare your data in CSV format with a timestamp column and variables of interest.
 
-2. Configure the experiment parameters in `src/config/default_config.py`.
+2. Use Command Line Interface
 
-3. Run the analysis:
+Run experiments using the main script with various configuration options:
 
-see example_notebook.ipynb
+```bash
+python main.py --dataset harvard_diamond_data_0 \
+               --ground_truth harvard_diamond_data_ground_truth \
+               --input_chunk_length 30 \
+               --output_chunk_length 14 \
+               --hidden_size 64 \
+               --lstm_layers 2 \
+               --attention_heads 2 \
+               --batch_size 64 \
+               --dropout 0.25 \
+               --epochs 200 \
+               --device mps
+```
+## Results
+
+The script generates several outputs in the specified output directory:
+- Causal graphs visualization
+- Adjacency matrices
+- Performance metrics plots
+- Evaluation metrics (F1, Precision, Recall, SHD)
 
 ## Contact
 
