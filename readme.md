@@ -17,7 +17,6 @@ This project explores using TFT's inherent architectural features - variable sel
 - Includes comprehensive evaluation metrics (F1 score, Precision, Recall, SHD)
 - Provides visualization tools for causal graphs and matrices
 
-
 ## Project Structure
 
 ```
@@ -36,6 +35,12 @@ This project explores using TFT's inherent architectural features - variable sel
 ## Dataset
 
 - Synthetic datasets: [Diamond shape causal structures with additive noise](https://dataverse.harvard.edu/dataverse/basic_causal_structures_additive_noise)
+
+## Dependencies
+Install required packages:
+- pandas==2.2.2
+- darts==0.32.0
+- seaborn==0.13.2
 
 ## Usage
 
@@ -58,6 +63,9 @@ python main.py --dataset harvard_diamond_data_0 \
                --epochs 200 \
                --device mps
 ```
+  > [!TIP]
+  > If you encounter training issues on Apple Silicon (M-series processors) with `train_loss=nan.0`, switch to "--device cpu"
+
 ## Results
 
 The script generates several outputs in the specified output directory:
